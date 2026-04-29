@@ -27,26 +27,650 @@
         gtag('config', 'G-366SHY8Y5T');
     </script>
     <!-- VERIFICATION AND ANALYTICS END -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0; line-height: 1.6; color: #333; }
-        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --teal:    #2D8C72;
+            --teal-lt: #E6F5F1;
+            --coral:   #E8634A;
+            --coral-lt:#FDF1EE;
+            --gold:    #F5A623;
+            --navy:    #1C3557;
+            --cream:   #FDFAF6;
+            --gray-1:  #F7F4EF;
+            --gray-2:  #EAE6DF;
+            --gray-3:  #9C9488;
+            --dark:    #2A2420;
+            --white:   #ffffff;
+            --radius:  14px;
+            --shadow:  0 4px 24px rgba(44,36,32,.10);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--cream);
+            color: var(--dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', Georgia, serif;
+            line-height: 1.25;
+        }
+
+        a { color: inherit; text-decoration: none; }
+        img { display: block; max-width: 100%; }
+
+        /* ===== HEADER (UNCHANGED STYLES, only layout polish) ===== */
+        header {
+            background-color: #4A90E2;
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 16px rgba(74,144,226,.25);
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
         nav ul { list-style: none; display: flex; gap: 2rem; margin: 0; padding: 0; }
         nav a { color: white; text-decoration: none; font-weight: 500; }
         nav a:hover { color: #50C878; }
-        .hero { background: linear-gradient(135deg, #4A90E2, #50C878); color: white; padding: 4rem 2rem; text-align: center; }
-        .hero h1 { font-size: 3rem; margin: 0; }
-        .hero p { font-size: 1.2rem; margin: 1rem 0; }
-        .btn { background-color: #FF6B6B; color: white; padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 5px; transition: background-color 0.3s; }
-        .btn:hover { background-color: #e55a5a; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
-        .featured-posts { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0; }
-        .post-card { border: 1px solid #ddd; border-radius: 8px; overflow: hidden; transition: box-shadow 0.3s; }
-        .post-card:hover { box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        .post-card img { width: 100%; height: 200px; object-fit: cover; }
-        .post-card h3 { margin: 1rem; }
-        .post-card p { margin: 0 1rem 1rem; }
-        @media (max-width: 768px) { nav ul { flex-direction: column; gap: 1rem; } .hero h1 { font-size: 2rem; } }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(135deg, #4A90E2 0%, #50C878 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 5rem 2rem 4rem;
+            color: white;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Ccircle cx='30' cy='30' r='10'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .hero-inner {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        .hero-text .tag {
+            display: inline-block;
+            background: rgba(255,255,255,.22);
+            border: 1px solid rgba(255,255,255,.4);
+            border-radius: 999px;
+            padding: .3rem 1rem;
+            font-size: .85rem;
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+        }
+        .hero-text h1 {
+            font-size: clamp(2rem, 4vw, 3.4rem);
+            color: white;
+            margin-bottom: 1.2rem;
+        }
+        .hero-text h1 em {
+            font-style: italic;
+            color: #d4f5e8;
+        }
+        .hero-text p {
+            font-size: 1.1rem;
+            opacity: .92;
+            margin-bottom: 2rem;
+            max-width: 480px;
+        }
+        .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .btn-primary {
+            background: white;
+            color: #2D7DD2;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: .8rem 1.8rem;
+            border-radius: 50px;
+            transition: transform .2s, box-shadow .2s;
+            box-shadow: 0 4px 18px rgba(0,0,0,.18);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.22); }
+        .btn-secondary {
+            background: rgba(255,255,255,.18);
+            border: 2px solid rgba(255,255,255,.7);
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: .75rem 1.8rem;
+            border-radius: 50px;
+            transition: background .2s;
+        }
+        .btn-secondary:hover { background: rgba(255,255,255,.3); }
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+        }
+        .hero-card-wrap {
+            position: relative;
+            width: 340px;
+        }
+        .hero-card-wrap .main-img {
+            width: 100%;
+            border-radius: 24px;
+            object-fit: cover;
+            height: 380px;
+            background: rgba(255,255,255,.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-badge {
+            position: absolute;
+            bottom: -16px;
+            left: -20px;
+            background: white;
+            border-radius: 16px;
+            padding: 1rem 1.3rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: .8rem;
+            font-size: .9rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        .hero-badge .icon { font-size: 1.5rem; }
+        .stat-pill {
+            position: absolute;
+            top: 20px;
+            right: -24px;
+            background: var(--gold);
+            color: white;
+            border-radius: 12px;
+            padding: .7rem 1.1rem;
+            font-weight: 800;
+            font-size: .85rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        .stat-pill span { display: block; font-size: 1.4rem; font-weight: 900; }
+
+        /* ===== TRUST BAR ===== */
+        .trust-bar {
+            background: white;
+            padding: 1.4rem 2rem;
+            border-bottom: 1px solid var(--gray-2);
+        }
+        .trust-bar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+        .trust-bar .label {
+            font-size: .8rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--gray-3);
+            white-space: nowrap;
+        }
+        .trust-badges { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: center; }
+        .trust-badge {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--gray-3);
+            opacity: .7;
+            letter-spacing: .03em;
+        }
+
+        /* ===== PILLARS ===== */
+        .pillars {
+            padding: 5rem 2rem;
+            background: var(--cream);
+        }
+        .section-header {
+            text-align: center;
+            max-width: 640px;
+            margin: 0 auto 3rem;
+        }
+        .section-header .eyebrow {
+            display: inline-block;
+            font-size: .8rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--teal);
+            margin-bottom: .7rem;
+        }
+        .section-header h2 {
+            font-size: clamp(1.7rem, 3vw, 2.5rem);
+            color: var(--navy);
+            margin-bottom: .8rem;
+        }
+        .section-header p {
+            color: var(--gray-3);
+            font-size: 1.05rem;
+        }
+        .pillars-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .pillar-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2.4rem 2rem;
+            box-shadow: var(--shadow);
+            transition: transform .25s, box-shadow .25s;
+            position: relative;
+            overflow: hidden;
+        }
+        .pillar-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+        }
+        .pillar-card.c1::before { background: var(--teal); }
+        .pillar-card.c2::before { background: var(--coral); }
+        .pillar-card.c3::before { background: var(--gold); }
+        .pillar-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(44,36,32,.14); }
+        .pillar-icon {
+            width: 60px; height: 60px;
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.7rem;
+            margin-bottom: 1.4rem;
+        }
+        .pillar-card.c1 .pillar-icon { background: var(--teal-lt); }
+        .pillar-card.c2 .pillar-icon { background: var(--coral-lt); }
+        .pillar-card.c3 .pillar-icon { background: #FEF9EC; }
+        .pillar-card h3 {
+            font-size: 1.25rem;
+            color: var(--navy);
+            margin-bottom: .7rem;
+        }
+        .pillar-card p {
+            color: var(--gray-3);
+            font-size: .97rem;
+            margin-bottom: 1.4rem;
+        }
+        .pillar-link {
+            font-weight: 700;
+            font-size: .9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+        }
+        .pillar-card.c1 .pillar-link { color: var(--teal); }
+        .pillar-card.c2 .pillar-link { color: var(--coral); }
+        .pillar-card.c3 .pillar-link { color: var(--gold); }
+        .pillar-link::after { content: '→'; transition: transform .2s; }
+        .pillar-link:hover::after { transform: translateX(4px); }
+
+        /* ===== FEATURED ARTICLES ===== */
+        .featured {
+            padding: 5rem 2rem;
+            background: var(--gray-1);
+        }
+        .featured-inner { max-width: 1200px; margin: 0 auto; }
+        .featured-grid {
+            display: grid;
+            grid-template-columns: 1.55fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 1.6rem;
+        }
+        .post-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform .25s, box-shadow .25s;
+            display: flex;
+            flex-direction: column;
+        }
+        .post-card:hover { transform: translateY(-5px); box-shadow: 0 10px 36px rgba(44,36,32,.13); }
+        .post-card.hero-post { grid-row: 1 / 3; }
+        .post-card.hero-post .card-thumb { height: 300px; }
+        .card-thumb {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: var(--gray-2);
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .card-thumb-img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+        .card-cat {
+            position: absolute;
+            bottom: 12px; left: 12px;
+            background: var(--teal);
+            color: white;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            padding: .25rem .75rem;
+            border-radius: 999px;
+        }
+        .card-cat.coral { background: var(--coral); }
+        .card-cat.gold { background: var(--gold); }
+        .card-body { padding: 1.4rem; flex: 1; display: flex; flex-direction: column; }
+        .card-body h3 {
+            font-size: 1.15rem;
+            color: var(--navy);
+            margin-bottom: .6rem;
+            flex: 1;
+        }
+        .post-card.hero-post .card-body h3 { font-size: 1.45rem; }
+        .card-body p { font-size: .93rem; color: var(--gray-3); margin-bottom: 1rem; }
+        .card-meta { font-size: .8rem; color: var(--gray-3); font-weight: 600; display: flex; gap: 1rem; align-items: center; }
+        .card-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gray-3); }
+        .featured-cta { text-align: center; margin-top: 2.5rem; }
+        .btn-outline {
+            border: 2px solid var(--teal);
+            color: var(--teal);
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: .75rem 2rem;
+            border-radius: 50px;
+            display: inline-block;
+            transition: background .2s, color .2s;
+        }
+        .btn-outline:hover { background: var(--teal); color: white; }
+
+        /* ===== ABOUT / COACH ===== */
+        .about-band {
+            padding: 5rem 2rem;
+            background: white;
+        }
+        .about-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .about-image-wrap { position: relative; }
+        .about-img-placeholder {
+            width: 100%;
+            height: 460px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, var(--teal-lt), var(--teal));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+        }
+        .about-quote-card {
+            position: absolute;
+            bottom: -20px;
+            right: -24px;
+            background: var(--navy);
+            color: white;
+            border-radius: 16px;
+            padding: 1.2rem 1.5rem;
+            max-width: 220px;
+            box-shadow: var(--shadow);
+        }
+        .about-quote-card p { font-size: .88rem; line-height: 1.5; opacity: .9; margin-bottom: .5rem; }
+        .about-quote-card .author { font-weight: 700; font-size: .8rem; color: #7EC8E3; }
+        .about-text .eyebrow {
+            display: inline-block;
+            font-size: .8rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--coral);
+            margin-bottom: .7rem;
+        }
+        .about-text h2 { font-size: clamp(1.7rem, 2.5vw, 2.4rem); color: var(--navy); margin-bottom: 1.2rem; }
+        .about-text p { color: #5c5851; font-size: 1.02rem; margin-bottom: 1rem; }
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .stat-box {
+            background: var(--gray-1);
+            border-radius: 12px;
+            padding: 1.2rem;
+            text-align: center;
+        }
+        .stat-box .num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--teal);
+            display: block;
+        }
+        .stat-box .lbl { font-size: .82rem; color: var(--gray-3); font-weight: 600; }
+        .btn-filled {
+            background: var(--coral);
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: .85rem 2rem;
+            border-radius: 50px;
+            display: inline-block;
+            transition: background .2s, transform .2s;
+            box-shadow: 0 4px 16px rgba(232,99,74,.3);
+        }
+        .btn-filled:hover { background: #d45239; transform: translateY(-2px); }
+
+        /* ===== CATEGORIES ===== */
+        .categories {
+            padding: 5rem 2rem;
+            background: var(--teal-lt);
+        }
+        .categories-inner { max-width: 1200px; margin: 0 auto; }
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.2rem;
+            margin-top: 2.5rem;
+        }
+        .cat-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.8rem 1.4rem;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(44,36,32,.07);
+            transition: transform .22s, box-shadow .22s;
+            cursor: pointer;
+        }
+        .cat-card:hover { transform: translateY(-5px); box-shadow: 0 8px 28px rgba(44,36,32,.12); }
+        .cat-emoji { font-size: 2.4rem; margin-bottom: .8rem; }
+        .cat-card h4 { font-size: 1rem; color: var(--navy); margin-bottom: .4rem; }
+        .cat-card p { font-size: .82rem; color: var(--gray-3); }
+        .cat-count {
+            display: inline-block;
+            margin-top: .8rem;
+            font-size: .75rem;
+            font-weight: 700;
+            color: var(--teal);
+            background: var(--teal-lt);
+            padding: .2rem .7rem;
+            border-radius: 999px;
+        }
+
+        /* ===== NEWSLETTER ===== */
+        .newsletter {
+            background: linear-gradient(135deg, var(--navy) 0%, #2d4b6e 100%);
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .newsletter::before {
+            content: '';
+            position: absolute;
+            width: 500px; height: 500px;
+            border-radius: 50%;
+            background: rgba(80,200,120,.08);
+            top: -200px; right: -100px;
+        }
+        .newsletter-inner {
+            max-width: 680px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+        .newsletter h2 { color: white; font-size: clamp(1.7rem, 3vw, 2.4rem); margin-bottom: .8rem; }
+        .newsletter p { color: rgba(255,255,255,.75); font-size: 1.05rem; margin-bottom: 2rem; }
+        .newsletter-form { display: flex; gap: .8rem; max-width: 480px; margin: 0 auto; }
+        .newsletter-form input {
+            flex: 1;
+            padding: .9rem 1.2rem;
+            border-radius: 50px;
+            border: none;
+            font-family: 'Nunito', sans-serif;
+            font-size: .97rem;
+            outline: none;
+            box-shadow: 0 2px 12px rgba(0,0,0,.2);
+        }
+        .newsletter-form button {
+            background: var(--coral);
+            color: white;
+            border: none;
+            padding: .9rem 1.6rem;
+            border-radius: 50px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: .97rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background .2s;
+        }
+        .newsletter-form button:hover { background: #d45239; }
+        .newsletter-note { font-size: .8rem; color: rgba(255,255,255,.45); margin-top: 1rem; }
+        .freebie-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .freebie-badge {
+            background: rgba(255,255,255,.1);
+            border: 1px solid rgba(255,255,255,.2);
+            color: rgba(255,255,255,.85);
+            border-radius: 50px;
+            padding: .4rem 1.1rem;
+            font-size: .82rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials {
+            padding: 5rem 2rem;
+            background: var(--cream);
+        }
+        .testimonials-inner { max-width: 1200px; margin: 0 auto; }
+        .testi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.6rem;
+            margin-top: 2.5rem;
+        }
+        .testi-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        .testi-card::before {
+            content: '"';
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            color: var(--teal-lt);
+            position: absolute;
+            top: -.5rem;
+            left: 1.2rem;
+            line-height: 1;
+            font-weight: 700;
+        }
+        .testi-stars { color: var(--gold); font-size: 1rem; margin-bottom: 1rem; }
+        .testi-card p { font-size: .97rem; color: #5c5851; line-height: 1.7; margin-bottom: 1.4rem; }
+        .testi-author { display: flex; align-items: center; gap: .8rem; }
+        .testi-avatar {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: var(--teal-lt);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .testi-author .name { font-weight: 700; font-size: .9rem; color: var(--navy); }
+        .testi-author .role { font-size: .8rem; color: var(--gray-3); }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 968px) {
+            nav ul { gap: 1.2rem; }
+            .hero-inner { grid-template-columns: 1fr; text-align: center; }
+            .hero-visual { display: none; }
+            .hero-btns { justify-content: center; }
+            .pillars-grid { grid-template-columns: 1fr; }
+            .featured-grid { grid-template-columns: 1fr; }
+            .post-card.hero-post { grid-row: auto; }
+            .about-inner { grid-template-columns: 1fr; }
+            .about-image-wrap { display: none; }
+            .cat-grid { grid-template-columns: repeat(2, 1fr); }
+            .testi-grid { grid-template-columns: 1fr; }
+            .newsletter-form { flex-direction: column; }
+        }
+        @media (max-width: 600px) {
+            nav ul { display: none; }
+            .cat-grid { grid-template-columns: repeat(2, 1fr); }
+        }
     </style>
+
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -79,6 +703,8 @@
     </script>
 </head>
 <body>
+
+    <!-- ===== HEADER (UNTOUCHED STRUCTURE & STYLES) ===== -->
     <header style="background-color: #4A90E2; color: white; padding: 1rem;">
         <nav>
             <div><a href="index.html" style="color: white; text-decoration: none; font-weight: bold;">Parently</a></div>
@@ -90,35 +716,309 @@
             </ul>
         </nav>
     </header>
+
     <main>
+
+        <!-- ===== HERO ===== -->
         <section class="hero">
-            <h1>Welcome to Parently</h1>
-            <p>Your trusted source for parenting advice, tips, and resources to help you raise happy, healthy children.</p>
-            <a href="blog.html" class="btn">Explore Our Blog</a>
-        </section>
-        <section class="container">
-            <h2>Featured Articles</h2>
-            <div class="featured-posts">
-                <article class="post-card">
-                    <img src="https://via.placeholder.com/400x200/4A90E2/FFFFFF?text=Newborn+Sleep" alt="Newborn Sleep Guide">
-                    <h3><a href="blog/newborn-sleep-guide.html">The Ultimate Newborn Sleep Guide</a></h3>
-                    <p>Learn essential tips for establishing healthy sleep patterns for your newborn.</p>
-                </article>
-                <article class="post-card">
-                    <img src="https://via.placeholder.com/400x200/50C878/FFFFFF?text=Toddler+Discipline" alt="Toddler Tantrum Positive Discipline">
-                    <h3><a href="blog/toddler-tantrum-positive-discipline.html">Handling Toddler Tantrums with Positive Discipline</a></h3>
-                    <p>Effective strategies to manage tantrums while teaching valuable life skills.</p>
-                </article>
-                <article class="post-card">
-                    <img src="https://via.placeholder.com/400x200/FF6B6B/FFFFFF?text=Teen+Mental+Health" alt="Teen Mental Health Warning Signs">
-                    <h3><a href="blog/teen-mental-health-warning-signs.html">Recognizing Warning Signs of Teen Mental Health Issues</a></h3>
-                    <p>Important signs to watch for and when to seek professional help.</p>
-                </article>
+            <div class="hero-inner">
+                <div class="hero-text">
+                    <span class="tag">✨ Trusted by 50,000+ parents</span>
+                    <h1>Raise <em>Connected,</em> Confident &amp; Happy Kids</h1>
+                    <p>Evidence-based parenting advice, practical tools, and warm guidance for every stage — from newborns to teenagers.</p>
+                    <div class="hero-btns">
+                        <a href="blog.html" class="btn-primary">Explore the Blog</a>
+                        <a href="about.html" class="btn-secondary">Our Approach →</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-card-wrap">
+                        <div class="main-img" style="font-size:6rem;">👨‍👩‍👧‍👦</div>
+                        <div class="hero-badge">
+                            <span class="icon">💚</span>
+                            <div>
+                                <div style="font-size:.72rem;color:#888;font-weight:600;">This week</div>
+                                New sleep guide published
+                            </div>
+                        </div>
+                        <div class="stat-pill">
+                            <span>200+</span>
+                            Expert Articles
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
+
+        <!-- ===== TRUST BAR ===== -->
+        <div class="trust-bar">
+            <div class="trust-bar-inner">
+                <span class="label">As seen in</span>
+                <div class="trust-badges">
+                    <span class="trust-badge">Parenting Today</span>
+                    <span class="trust-badge">Family Circle</span>
+                    <span class="trust-badge">Child Development Weekly</span>
+                    <span class="trust-badge">Mom &amp; Baby</span>
+                    <span class="trust-badge">Healthy Families</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== THREE PILLARS ===== -->
+        <section class="pillars">
+            <div class="section-header">
+                <span class="eyebrow">How We Help</span>
+                <h2>Your Path to Confident Parenting</h2>
+                <p>Every family is unique. We offer targeted guidance across the three pillars that matter most.</p>
+            </div>
+            <div class="pillars-grid">
+                <div class="pillar-card c1">
+                    <div class="pillar-icon">🤝</div>
+                    <h3>Build Deep Connection</h3>
+                    <p>Strengthen trust and emotional bonds with your child through everyday moments and practical tools rooted in attachment science.</p>
+                    <a href="blog.html" class="pillar-link">Explore strategies</a>
+                </div>
+                <div class="pillar-card c2">
+                    <div class="pillar-icon">🧭</div>
+                    <h3>Guide Behaviour Positively</h3>
+                    <p>Move beyond power struggles with research-backed discipline methods that build emotional regulation and mutual respect.</p>
+                    <a href="blog.html" class="pillar-link">Explore strategies</a>
+                </div>
+                <div class="pillar-card c3">
+                    <div class="pillar-icon">🏡</div>
+                    <h3>Strengthen Family Culture</h3>
+                    <p>Cultivate shared values, healthy communication habits, and a purposeful home environment where everyone thrives.</p>
+                    <a href="blog.html" class="pillar-link">Explore strategies</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== FEATURED ARTICLES ===== -->
+        <section class="featured">
+            <div class="featured-inner">
+                <div class="section-header">
+                    <span class="eyebrow">Latest From the Blog</span>
+                    <h2>Expert Advice You Can Actually Use</h2>
+                    <p>Practical, compassionate guidance written by child development specialists and experienced parents.</p>
+                </div>
+                <div class="featured-grid">
+
+                    <!-- HERO POST -->
+                    <article class="post-card hero-post">
+                        <div class="card-thumb" style="height:300px;background:linear-gradient(135deg,#4A90E2,#7EC8E3);">
+                            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:5rem;">😴</div>
+                            <span class="card-cat">Newborn</span>
+                        </div>
+                        <div class="card-body">
+                            <h3><a href="blog/newborn-sleep-guide.html">The Ultimate Newborn Sleep Guide: Help Your Baby (and Yourself) Rest</a></h3>
+                            <p>From safe sleep environments to soothing routines — everything first-time parents need to establish healthy sleep from day one.</p>
+                            <div class="card-meta">
+                                <span>8 min read</span>
+                                <span class="dot"></span>
+                                <span>Child Development</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- SMALL POSTS -->
+                    <article class="post-card">
+                        <div class="card-thumb" style="background:linear-gradient(135deg,#50C878,#2D8C72);">
+                            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">😤</div>
+                            <span class="card-cat coral">Toddler</span>
+                        </div>
+                        <div class="card-body">
+                            <h3><a href="blog/toddler-tantrum-positive-discipline.html">Handling Toddler Tantrums with Positive Discipline</a></h3>
+                            <div class="card-meta"><span>6 min read</span></div>
+                        </div>
+                    </article>
+
+                    <article class="post-card">
+                        <div class="card-thumb" style="background:linear-gradient(135deg,#E8634A,#F5A623);">
+                            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🧠</div>
+                            <span class="card-cat gold">Teens</span>
+                        </div>
+                        <div class="card-body">
+                            <h3><a href="blog/teen-mental-health-warning-signs.html">Recognizing Warning Signs of Teen Mental Health Issues</a></h3>
+                            <div class="card-meta"><span>7 min read</span></div>
+                        </div>
+                    </article>
+
+                </div>
+                <div class="featured-cta">
+                    <a href="blog.html" class="btn-outline">View All Articles</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ABOUT ===== -->
+        <section class="about-band">
+            <div class="about-inner">
+                <div class="about-image-wrap">
+                    <div class="about-img-placeholder">👩‍💻</div>
+                    <div class="about-quote-card">
+                        <p>"Every parent deserves to feel confident, not overwhelmed."</p>
+                        <span class="author">— The Parently Team</span>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <span class="eyebrow">Who We Are</span>
+                    <h2>Real Guidance for Real Parenting Moments</h2>
+                    <p>At Parently, we believe that confident parenting isn't about perfection — it's about connection, growth, and having the right tools when you need them most.</p>
+                    <p>Our team of certified child psychologists, experienced parents, and family counsellors combines the latest developmental research with honest, compassionate advice for the messy, beautiful reality of family life.</p>
+                    <div class="about-stats">
+                        <div class="stat-box">
+                            <span class="num">50K+</span>
+                            <span class="lbl">Parents Helped Monthly</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="num">200+</span>
+                            <span class="lbl">Expert Articles</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="num">15+</span>
+                            <span class="lbl">Topics Covered</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="num">4.9★</span>
+                            <span class="lbl">Reader Rating</span>
+                        </div>
+                    </div>
+                    <a href="about.html" class="btn-filled">Meet Our Experts</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== BROWSE BY CATEGORY ===== -->
+        <section class="categories">
+            <div class="categories-inner">
+                <div class="section-header">
+                    <span class="eyebrow">Browse Topics</span>
+                    <h2>Find Advice for Every Stage</h2>
+                    <p>Whether you have a newborn or a teenager, we have resources tailored to your family's needs.</p>
+                </div>
+                <div class="cat-grid">
+                    <a href="blog.html" class="cat-card">
+                        <div class="cat-emoji">👶</div>
+                        <h4>Newborn &amp; Baby</h4>
+                        <p>Sleep, feeding, development</p>
+                        <span class="cat-count">24 articles</span>
+                    </a>
+                    <a href="blog.html" class="cat-card">
+                        <div class="cat-emoji">🧒</div>
+                        <h4>Toddler Years</h4>
+                        <p>Tantrums, milestones, play</p>
+                        <span class="cat-count">31 articles</span>
+                    </a>
+                    <a href="blog.html" class="cat-card">
+                        <div class="cat-emoji">🎒</div>
+                        <h4>School Age</h4>
+                        <p>Learning, friendships, routines</p>
+                        <span class="cat-count">28 articles</span>
+                    </a>
+                    <a href="blog.html" class="cat-card">
+                        <div class="cat-emoji">🎧</div>
+                        <h4>Teenagers</h4>
+                        <p>Mental health, independence, screens</p>
+                        <span class="cat-count">19 articles</span>
+                    </a>
+                    <a href="blog.html" class="cat-card">
+                        <div class="cat-emoji">💬</div>
+                        <h4>Positive Discipline</h4>
+                        <p>Boundaries, consequences, calm</p>
+                        <span class="cat-count">22 articles</span>
+                    </a>
+                    <a href="blog.html" class="cat-card">
+                        <div class="cat-emoji">🧡</div>
+                        <h4>Emotional Health</h4>
+                        <p>Anxiety, resilience, connection</p>
+                        <span class="cat-count">17 articles</span>
+                    </a>
+                    <a href="blog.html" class="cat-card">
+                        <div class="cat-emoji">🍽️</div>
+                        <h4>Nutrition &amp; Health</h4>
+                        <p>Feeding, wellness, habits</p>
+                        <span class="cat-count">15 articles</span>
+                    </a>
+                    <a href="blog.html" class="cat-card">
+                        <div class="cat-emoji">🏫</div>
+                        <h4>School &amp; Learning</h4>
+                        <p>Homework, focus, motivation</p>
+                        <span class="cat-count">20 articles</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== TESTIMONIALS ===== -->
+        <section class="testimonials">
+            <div class="testimonials-inner">
+                <div class="section-header">
+                    <span class="eyebrow">Parent Stories</span>
+                    <h2>What Families Are Saying</h2>
+                    <p>We're honoured to be part of thousands of families' parenting journeys.</p>
+                </div>
+                <div class="testi-grid">
+                    <div class="testi-card">
+                        <div class="testi-stars">★★★★★</div>
+                        <p>Parently's newborn sleep guide was a lifesaver. My husband and I were utterly exhausted and within two weeks of following the advice, our daughter was sleeping 5-hour stretches. Incredible resource.</p>
+                        <div class="testi-author">
+                            <div class="testi-avatar">👩</div>
+                            <div>
+                                <div class="name">Sarah M.</div>
+                                <div class="role">Mum of a 4-month-old</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testi-card">
+                        <div class="testi-stars">★★★★★</div>
+                        <p>The toddler tantrum article completely shifted how I respond to my 3-year-old's meltdowns. I stopped reacting and started connecting. Our relationship has genuinely transformed.</p>
+                        <div class="testi-author">
+                            <div class="testi-avatar">👨</div>
+                            <div>
+                                <div class="name">David K.</div>
+                                <div class="role">Dad of two toddlers</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testi-card">
+                        <div class="testi-stars">★★★★★</div>
+                        <p>When I noticed changes in my teenage son, Parently's mental health warning signs article helped me know when to seek professional help. That article may have changed everything for us.</p>
+                        <div class="testi-author">
+                            <div class="testi-avatar">👩</div>
+                            <div>
+                                <div class="name">Priya R.</div>
+                                <div class="role">Mum of a 15-year-old</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== NEWSLETTER ===== -->
+        <section class="newsletter">
+            <div class="newsletter-inner">
+                <div class="freebie-badges">
+                    <span class="freebie-badge">📘 Free Sleep Checklist</span>
+                    <span class="freebie-badge">📋 Behaviour Strategy Guide</span>
+                    <span class="freebie-badge">💌 Weekly Tips</span>
+                </div>
+                <h2>Get Free Parenting Resources Delivered Weekly</h2>
+                <p>Join 50,000+ parents who receive our best articles, printable guides, and expert tips every week — completely free.</p>
+                <form class="newsletter-form" onsubmit="return false;">
+                    <input type="email" placeholder="Enter your email address…" aria-label="Email address">
+                    <button type="submit">Get Free Resources</button>
+                </form>
+                <p class="newsletter-note">No spam, ever. Unsubscribe anytime. 💚</p>
+            </div>
+        </section>
+
     </main>
+
+    <!-- ===== FOOTER (UNCHANGED) ===== -->
     <footer style="background-color: #333; color: white; text-align: center; padding: 1rem;">
         <p>&copy; 2024 Parently. All rights reserved.</p>
     </footer>
+
 </body>
 </html>
