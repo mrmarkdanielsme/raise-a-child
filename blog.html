@@ -28,20 +28,29 @@
     </script>
     <!-- VERIFICATION AND ANALYTICS END -->
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0; line-height: 1.6; color: #333; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0; line-height: 1.7; color: #1f2937; background-color: #f8fafc; }
         nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
         nav ul { list-style: none; display: flex; gap: 2rem; margin: 0; padding: 0; }
         nav a { color: white; text-decoration: none; font-weight: 500; }
-        nav a:hover { color: #50C878; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
-        .blog-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
-        .blog-post { border: 1px solid #ddd; border-radius: 8px; overflow: hidden; transition: box-shadow 0.3s; }
-        .blog-post:hover { box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        .blog-post img { width: 100%; height: 200px; object-fit: cover; }
-        .blog-post h3 { margin: 1rem; }
-        .blog-post p { margin: 0 1rem 1rem; }
-        .read-more { color: #4A90E2; text-decoration: none; font-weight: 500; }
-        .read-more:hover { color: #50C878; }
+        nav a:hover { color: #d1fae5; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+        h1 { margin-top: 0; font-size: clamp(2rem, 3vw, 2.75rem); color: #0f172a; }
+        p.lead { max-width: 760px; font-size: 1.05rem; color: #475569; }
+        .blog-list { display: grid; gap: 1.5rem; margin-top: 2rem; }
+        .blog-post { background-color: white; border: 1px solid #e2e8f0; border-radius: 18px; padding: 1.5rem; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+        .blog-post:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08); border-color: #c7d2fe; }
+        .post-link { display: block; color: inherit; text-decoration: none; }
+        .blog-meta { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin-bottom: 1rem; font-size: 0.95rem; color: #64748b; }
+        .blog-date { display: inline-flex; align-items: center; gap: 0.4rem; }
+        .blog-tag { display: inline-flex; align-items: center; background-color: #eef2ff; color: #4338ca; padding: 0.35rem 0.85rem; border-radius: 999px; font-weight: 600; letter-spacing: 0.01em; }
+        .blog-title { margin: 0 0 0.95rem; font-size: 1.4rem; color: #0f172a; line-height: 1.2; }
+        .blog-summary { margin: 0 0 1.25rem; color: #475569; max-width: 43rem; }
+        .read-more { color: #1d4ed8; font-weight: 700; transition: color 0.2s ease; }
+        .read-more:hover { color: #0ea5e9; }
+        .blog-add-tip { margin-top: 2.5rem; padding: 1.25rem 1.5rem; background-color: #eff6ff; border: 1px solid #bfdbfe; border-radius: 16px; color: #0f172a; }
+        .blog-add-tip h2 { margin-top: 0; font-size: 1.2rem; }
+        .blog-add-tip ul { margin: 0.75rem 0 0 1.25rem; color: #334155; }
+        .blog-add-tip li { margin-bottom: 0.5rem; }
         @media (max-width: 768px) { nav ul { flex-direction: column; gap: 1rem; } }
     </style>
     <script type="application/ld+json">
@@ -68,7 +77,7 @@
 <body>
     <header style="background-color: #4A90E2; color: white; padding: 1rem;">
         <nav>
-            <div><a href="index.html" style="color: white; text-decoration: none; font-weight: bold;">Raise A Child</a></div>
+            <div><a href="index.html" style="color: white; text-decoration: none; font-weight: bold;">Parently</a></div>
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="blog.html">Blog</a></li>
@@ -79,26 +88,53 @@
     </header>
     <main class="container">
         <h1>Parently Blog</h1>
-        <p>Explore our collection of parenting articles covering every stage of child development.</p>
+        <p class="lead">Explore our latest parenting guides and insights. Each post is presented as a clean, clickable card so you can access the right advice quickly.</p>
         <section class="blog-list">
             <article class="blog-post">
-                <img src="https://via.placeholder.com/400x200/4A90E2/FFFFFF?text=Newborn+Sleep" alt="Newborn Sleep Guide">
-                <h3><a href="newborn-sleep-guide.html">The Ultimate Newborn Sleep Guide</a></h3>
-                <p>Establishing healthy sleep patterns is crucial for newborns. Learn proven techniques to help your baby sleep better and longer.</p>
-                <a href="newborn-sleep-guide.html" class="read-more">Read More</a>
+                <a class="post-link" href="https://mrmarkdanielsme.github.io/raise-a-child/blog/newborn-sleep-guide.html" aria-label="Read The Ultimate Newborn Sleep Guide">
+                    <div class="blog-meta">
+                        <span class="blog-date">January 18, 2024</span>
+                        <span class="blog-tag">Newborn Care</span>
+                    </div>
+                    <h2 class="blog-title">The Ultimate Newborn Sleep Guide</h2>
+                    <p class="blog-summary">Establish healthy sleep habits with proven newborn sleep techniques, soothing routines, and practical tips for new parents.</p>
+                    <span class="read-more">Read article →</span>
+                </a>
             </article>
             <article class="blog-post">
-                <img src="https://via.placeholder.com/400x200/50C878/FFFFFF?text=Toddler+Discipline" alt="Toddler Tantrum Positive Discipline">
-                <h3><a href="toddler-tantrum-positive-discipline.html">Handling Toddler Tantrums with Positive Discipline</a></h3>
-                <p>Tantrums are a normal part of toddler development. Discover positive discipline strategies that work.</p>
-                <a href="toddler-tantrum-positive-discipline.html" class="read-more">Read More</a>
+                <a class="post-link" href="https://mrmarkdanielsme.github.io/raise-a-child/blog/toddler-tantrum-positive-discipline.html" aria-label="Read Handling Toddler Tantrums with Positive Discipline">
+                    <div class="blog-meta">
+                        <span class="blog-date">February 1, 2024</span>
+                        <span class="blog-tag">Toddler Discipline</span>
+                    </div>
+                    <h2 class="blog-title">Handling Toddler Tantrums with Positive Discipline</h2>
+                    <p class="blog-summary">Discover calm and effective discipline strategies for toddlers that strengthen trust and help children regulate emotions.</p>
+                    <span class="read-more">Read article →</span>
+                </a>
             </article>
             <article class="blog-post">
-                <img src="https://via.placeholder.com/400x200/FF6B6B/FFFFFF?text=Teen+Mental+Health" alt="Teen Mental Health Warning Signs">
-                <h3><a href="teen-mental-health-warning-signs.html">Recognizing Warning Signs of Teen Mental Health Issues</a></h3>
-                <p>Understanding the signs of mental health challenges in teenagers can help you provide timely support.</p>
-                <a href="teen-mental-health-warning-signs.html" class="read-more">Read More</a>
+                <a class="post-link" href="https://mrmarkdanielsme.github.io/raise-a-child/blog/teen-mental-health-warning-signs.html" aria-label="Read Recognizing Warning Signs of Teen Mental Health Issues">
+                    <div class="blog-meta">
+                        <span class="blog-date">March 15, 2024</span>
+                        <span class="blog-tag">Teen Health</span>
+                    </div>
+                    <h2 class="blog-title">Recognizing Warning Signs of Teen Mental Health Issues</h2>
+                    <p class="blog-summary">Learn how to spot emotional, behavioral, and physical warning signs so you can support your teen before problems escalate.</p>
+                    <span class="read-more">Read article →</span>
+                </a>
             </article>
+        </section>
+        <section class="blog-add-tip">
+            <h2>How to add a new blog post</h2>
+            <p>To add another post, copy one of the cards above and update the following values:</p>
+            <ul>
+                <li>Post URL in <code>href="https://..."</code></li>
+                <li>Publication date</li>
+                <li>Category label</li>
+                <li>Post title</li>
+                <li>Short summary</li>
+            </ul>
+            <p>Keeping the same card structure ensures a consistent layout and easy future updates.</p>
         </section>
     </main>
     <footer style="background-color: #333; color: white; text-align: center; padding: 1rem;">
