@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mrmarkdanielsme.github.io/raise-a-child/sitemap.xml
