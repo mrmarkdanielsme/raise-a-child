@@ -1,0 +1,11 @@
+Raise A Child
+https://mrmarkdanielsme.github.io/raise-a-child
+A Raise a Child blog focused on newborn sleep, toddler discipline, and teen mental health guidance.
+Primary site pages:
+- Home
+- Blog
+- About
+- Contact
+- Newborn Sleep Guide
+- Toddler Tantrum Positive Discipline
+- Teen Mental Health Warning Signs
